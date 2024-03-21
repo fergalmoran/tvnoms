@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>TvNoms.Server.ApiService</RootNamespace>
+    <UserSecretsId>36158b47-6670-464c-8f1b-5d80b08f202e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
