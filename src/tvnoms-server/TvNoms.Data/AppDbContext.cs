@@ -9,8 +9,7 @@ using TvNoms.Server.Data.Extensions;
 namespace TvNoms.Server.Data;
 
 public class AppDbContext(IConfiguration configuration) :
-  IdentityDbContext<User, Role, Guid, IdentityUserClaim<Guid>,
-    UserRole, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>> {
+  IdentityDbContext<User, IdentityRole<Guid>, Guid> {
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
     optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
 

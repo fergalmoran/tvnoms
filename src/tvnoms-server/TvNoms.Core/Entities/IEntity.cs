@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TvNoms.Core.Entities;
 
 public interface IEntity {
-  public Guid Id { get; }
+  Guid Id { get; }
 }
 
 public class BaseEntity : IEntity {

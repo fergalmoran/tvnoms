@@ -3,7 +3,7 @@
 namespace TvNoms.Core.Models.Medias;
 
 public class DeleteMediaForm {
-  public long Id { get; set; }
+  public Guid Id { get; set; }
 }
 
 public class DeleteMediaFormValidator : AbstractValidator<DeleteMediaForm> {

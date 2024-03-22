@@ -4,7 +4,7 @@ using AbstractProfile = AutoMapper.Profile;
 namespace TvNoms.Core.Models.Medias;
 
 public class MediaModel {
-  public long Id { get; set; }
+  public Guid Id { get; set; }
 
   public string Path { get; set; } = default!;
 

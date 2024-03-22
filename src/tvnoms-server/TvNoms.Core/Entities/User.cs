@@ -11,7 +11,6 @@ public class User : IdentityUser<Guid>, IEntity {
   public string? Location { get; set; }
   public bool Active { get; set; }
   public DateTimeOffset LastActiveAt { get; set; }
-  public virtual ICollection<UserRole> Roles { get; set; } = new List<UserRole>();
   public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
 
 
@@ -19,9 +18,6 @@ public class User : IdentityUser<Guid>, IEntity {
   public bool PhoneNumberRequired { get; set; }
 }
 
-public class UserRole : IdentityUserRole<Guid>, IEntity {
-  Guid IEntity.Id { get; }
-}
 
 public class UserSession : IEntity {
   public Guid Id { get; set; }
@@ -34,20 +30,4 @@ public class UserSession : IEntity {
   public DateTimeOffset AccessTokenExpiresAt { get; set; }
   public string RefreshTokenHash { get; set; } = default!;
   public DateTimeOffset RefreshTokenExpiresAt { get; set; }
-}
-
-public class Role : IdentityRole<Guid>, IEntity {
-  public Role() {
-  }
-
-  public Role(string roleName) : base(roleName) {
-  }
-
-  public virtual ICollection<UserRole> Users { get; set; } = new List<UserRole>();
-
-  public const string Admin = nameof(Admin);
-
-  public const string Member = nameof(Member);
-
-  public static IEnumerable<string> All => new[] { Admin, Member };
 }

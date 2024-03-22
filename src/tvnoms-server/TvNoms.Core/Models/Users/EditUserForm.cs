@@ -16,7 +16,7 @@ public class EditUserForm {
 
   public string? PhoneNumber { get; set; } = default!;
 
-  public long? AvatarId { get; set; }
+  public Guid? AvatarId { get; set; }
 
   public string? Bio { get; set; }
 }

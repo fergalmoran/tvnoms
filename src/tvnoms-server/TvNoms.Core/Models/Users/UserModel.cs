@@ -4,7 +4,7 @@ using AbstractProfile = AutoMapper.Profile;
 namespace TvNoms.Core.Models.Users;
 
 public class UserModel {
-  public long Id { get; set; }
+  public Guid Id { get; set; }
 
   public string? UserName { get; set; }
 
@@ -20,7 +20,7 @@ public class UserModel {
 
   public bool PhoneNumberRequired { get; set; }
 
-  public long? AvatarId { get; set; }
+  public Guid? AvatarId { get; set; }
 
   public string? AvatarUrl { get; set; }
 
