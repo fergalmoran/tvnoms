@@ -20,26 +20,22 @@ public class User : IdentityUser<Guid>, IEntity {
 }
 
 public class UserRole : IdentityUserRole<Guid>, IEntity {
+  public Guid Id { get; set; }
+
   public virtual User User { get; set; } = default!;
-
   public virtual Role Role { get; set; } = default!;
-
-  Guid IEntity.Id { get; set; }
 }
 
 public class UserSession : IEntity {
-  public virtual User User { get; set; } = default!;
-
-  public Guid UserId { get; set; }
-
   public Guid Id { get; set; }
 
+  public virtual User User { get; set; } = default!;
+  public Guid UserId { get; set; }
+
+
   public string AccessTokenHash { get; set; } = default!;
-
   public DateTimeOffset AccessTokenExpiresAt { get; set; }
-
   public string RefreshTokenHash { get; set; } = default!;
-
   public DateTimeOffset RefreshTokenExpiresAt { get; set; }
 }
 

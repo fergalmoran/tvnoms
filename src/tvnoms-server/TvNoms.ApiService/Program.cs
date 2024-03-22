@@ -8,12 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using TvNoms.Server.ApiService.Shared;
 using TvNoms.Server.Data;
 using TvNoms.Server.Data.Models;
+using TvNoms.Server.Services.Data.Models;
+using TvNoms.Server.Services.Data.Repositories;
 using TvNoms.Server.Services.Identity;
 using TvNoms.Server.Services.Infrastructure.Messaging;
 using TvNoms.Server.Services.Infrastructure.Messaging.Email;
 using TvNoms.Server.Services.Infrastructure.Messaging.SMS;
+using TvNoms.Server.Services.Infrastructure.Storage;
+using TvNoms.Server.Services.Utilities;
+using TvNoms.Server.Services.ViewRenderer.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
+var assemblies = AssemblyHelper.GetAssemblies().ToArray();
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
@@ -45,6 +51,11 @@ builder.Services.AddDbContext<AppDbContext>(options => {
   options.UseNpgsql(connectionString,
     sqlOptions => sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name));
 });
+builder.Services.AddAutoMapper(assemblies);
+builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblies(assemblies); });
+builder.Services.AddRepositories(assemblies);
+builder.Services.AddValidators(assemblies);
+
 builder.Services.AddIdentity<User, Role>(options => {
     // Password settings. (Will be using fluent validation)
     options.Password.RequireDigit = false;
@@ -94,18 +105,26 @@ builder.Services.AddAuthentication(options => {
     options.SignInScheme = IdentityConstants.ExternalScheme;
     builder.Configuration.GetRequiredSection("GoogleAuthOptions").Bind(options);
   });
-
+builder.Services.AddModelBuilder();
 builder.Services.AddAuthorization();
 builder.Services.AddMailgunEmailSender(options => {
   builder.Configuration.GetRequiredSection("MailgunEmailOptions").Bind(options);
 });
 builder.Services.AddFakeSmsSender();
+builder.Services.AddRazorViewRenderer();
+
+builder.Services.AddLocalFileStorage(options => {
+  options.RootPath = Path.Combine(builder.Environment.WebRootPath, "uploads");
+  options.WebRootPath = "/uploads";
+});
 builder.Services.AddDocumentations();
+builder.Services.AddWebAppCors();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
+app.UseCors("WebAppPolicy");
 
 app.MapGet("/ping", () => "pong");
 

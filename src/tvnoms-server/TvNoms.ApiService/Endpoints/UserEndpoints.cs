@@ -112,12 +112,10 @@ public class UserEndpoints : Shared.Endpoints {
 
     provider = provider.Pascalize();
 
-    var allowedOrigins = configuration.GetSection("AllowedOrigins")?.Get<string[]>() ?? Array.Empty<string>();
+    var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
 
-    if (!allowedOrigins.Any(origin => Uri.Compare(
-          new Uri(origin, UriKind.Absolute),
-          new Uri(origin), UriComponents.SchemeAndServer, UriFormat.UriEscaped,
-          StringComparison.OrdinalIgnoreCase) == 0))
+    if (allowedOrigins.All(origin => Uri.Compare(new Uri(origin, UriKind.Absolute), new Uri(origin),
+          UriComponents.SchemeAndServer, UriFormat.UriEscaped, StringComparison.OrdinalIgnoreCase) != 0))
       throw new BadRequestException(nameof(returnUrl), $"'{nameof(returnUrl)}' is not allowed.");
 
     // Request a redirect to the external sign-in provider.

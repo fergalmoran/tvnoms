@@ -8,6 +8,19 @@ using TvNoms.Server.Services.Data.Services;
 namespace TvNoms.Server.Services.Identity;
 
 public static class ServiceCollectionExtensions {
+  public static IServiceCollection AddWebAppCors(this IServiceCollection services) {
+    services.AddCors(options => {
+      options.AddPolicy("WebAppPolicy", builder => {
+        builder
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials()
+          .WithOrigins("https://tvnoms.dev.fergl.ie:3000/");
+      });
+    });
+    return services;
+  }
+
   public static AuthenticationBuilder AddBearer(this AuthenticationBuilder builder,
     Action<UserSessionOptions> options) {
     builder.Services.AddOptions<UserSessionOptions>().Configure<IHttpContextAccessor>(
