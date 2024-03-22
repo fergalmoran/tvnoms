@@ -2,14 +2,14 @@ using System.Security.Claims;
 using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TvNoms.Server.Data.Models;
-using TvNoms.Server.Services.Data.Models.Medias;
-using TvNoms.Server.Services.Data.Models.Users;
-using TvNoms.Server.Services.Data.Models.Users.Accounts;
-using TvNoms.Server.Services.Data.Services;
-using TvNoms.Server.Services.Identity;
-using TvNoms.Server.Services.Utilities;
-using TvNoms.Server.Services.Validation.Exceptions;
+using TvNoms.Core.Entities;
+using TvNoms.Core.Extensions.Identity;
+using TvNoms.Core.Models.Medias;
+using TvNoms.Core.Models.Users;
+using TvNoms.Core.Models.Users.Accounts;
+using TvNoms.Core.Utilities;
+using TvNoms.Core.Utilities.Validation.Exceptions;
+using TvNoms.Server.Services;
 
 namespace TvNoms.Server.ApiService.Endpoints;
 

@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\automapper\13.0.1\lib\net6.0\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\fluentvalidation\11.9.0\lib\net8.0\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\humanizer.core\2.14.1\lib\net6.0\Humanizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.dotnet\shared\Microsoft.AspNetCore.App\8.0.3\Microsoft.AspNetCore.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Core">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\microsoft.extensions.identity.core\8.0.3\lib\net8.0\Microsoft.Extensions.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Stores">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\microsoft.extensions.identity.stores\8.0.3\lib\net8.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\microsoft.extensions.options\8.0.2\lib\net8.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\microsoft.extensions.options\8.0.2\lib\net8.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DeviceId" Version="6.6.0"/>
+    <PackageReference Include="libphonenumber-csharp" Version="8.13.32"/>
+    <PackageReference Include="MediatR" Version="12.2.0"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.0"/>
+    <PackageReference Include="UAParser" Version="3.1.47"/>
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-﻿using TvNoms.Server.Services.Utilities;
+﻿using TvNoms.Core.Utilities;
 
 namespace TvNoms.Server.ApiService.Shared;
 

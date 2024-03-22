@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TvNoms.Data\TvNoms.Data.csproj" />
+    <ProjectReference Include="..\TvNoms.Infrastructure\TvNoms.Infrastructure.csproj" />
     <ProjectReference Include="..\TvNoms.ServiceDefaults\TvNoms.ServiceDefaults.csproj" />
     <ProjectReference Include="..\TvNoms.Services\TvNoms.Services.csproj" />
   </ItemGroup>
