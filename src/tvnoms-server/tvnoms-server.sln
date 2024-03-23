@@ -8,8 +8,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvNoms.ServiceDefaults", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvNoms.ApiService", "TvNoms.ApiService\TvNoms.ApiService.csproj", "{0EF6A7BF-D62A-4446-9BAF-4F22E8DEBBA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TvNoms.Web", "TvNoms.Web\TvNoms.Web.csproj", "{BD4008E1-1DD9-48FB-A626-10D4BD224CA4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvNoms.Data", "TvNoms.Data\TvNoms.Data.csproj", "{6B17B4E1-E779-4B2F-A2D4-63F7E8787CC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvNoms.Services", "TvNoms.Services\TvNoms.Services.csproj", "{8B6997BA-2045-4B3B-8BBE-7B9119E8FDF8}"
@@ -36,10 +34,6 @@ Global
 		{0EF6A7BF-D62A-4446-9BAF-4F22E8DEBBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EF6A7BF-D62A-4446-9BAF-4F22E8DEBBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EF6A7BF-D62A-4446-9BAF-4F22E8DEBBA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD4008E1-1DD9-48FB-A626-10D4BD224CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD4008E1-1DD9-48FB-A626-10D4BD224CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD4008E1-1DD9-48FB-A626-10D4BD224CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD4008E1-1DD9-48FB-A626-10D4BD224CA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B17B4E1-E779-4B2F-A2D4-63F7E8787CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B17B4E1-E779-4B2F-A2D4-63F7E8787CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B17B4E1-E779-4B2F-A2D4-63F7E8787CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU

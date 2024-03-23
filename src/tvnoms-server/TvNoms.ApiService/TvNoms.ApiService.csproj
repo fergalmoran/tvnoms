@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>TvNoms.Server.ApiService</RootNamespace>
-    <UserSecretsId>36158b47-6670-464c-8f1b-5d80b08f202e</UserSecretsId>
+    <UserSecretsId>9fe964b6-f544-40d0-8b84-923001ab114e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
