@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Humanizer;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TvNoms.Core.Entities;
@@ -13,6 +14,7 @@ using TvNoms.Server.Services;
 
 namespace TvNoms.Server.ApiService.Endpoints;
 
+[EnableCors("WebAppCors")]
 public class UserEndpoints : Shared.Endpoints {
   public UserEndpoints(IEndpointRouteBuilder endpointRouteBuilder)
     : base(endpointRouteBuilder) {
@@ -59,10 +61,12 @@ public class UserEndpoints : Shared.Endpoints {
     return Results.Ok();
   }
 
+  [EnableCors("WebAppCors")]
   public async Task<IResult> SignInAsync([FromServices] IUserService userService, [FromBody] SignInForm form) {
     return Results.Ok(await userService.SignInAsync(form));
   }
 
+  [EnableCors("WebAppCors")]
   public async Task<IResult> SignInWithAsync(
     [FromServices] IUserService userService,
     [FromServices] SignInManager<User> signInManager,
@@ -99,6 +103,7 @@ public class UserEndpoints : Shared.Endpoints {
     return Results.Ok(await userService.SignInWithAsync(form));
   }
 
+  [EnableCors("WebAppCors")]
   public IResult SignInWithRedirectAsync(
     [FromServices] SignInManager<User> signInManager,
     [FromServices] IConfiguration configuration,

@@ -7,7 +7,7 @@ public interface IEntity {
   Guid Id { get; }
 }
 
-public class BaseEntity : IEntity {
+public abstract class BaseEntity : IEntity {
   [Key]
   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
   public Guid Id { get; set; }

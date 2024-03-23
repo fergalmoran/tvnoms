@@ -12,7 +12,8 @@ public static class DbContextExtensions {
       .SelectMany(_ => _.DefinedTypes)
       .Select(_ => _.AsType())
       .Where(type => type is { IsClass: true, IsAbstract: false, IsGenericType: false } &&
-                     type.IsCompatibleWith(typeof(IEntity)) && (predicate?.Invoke(type) ?? true));
+                     (type.IsCompatibleWith(typeof(IEntity)) || type is BaseEntity) &&
+                     (predicate?.Invoke(type) ?? true));
 
     foreach (var entityType in entityTypes) {
       modelBuilder.Entity(entityType);

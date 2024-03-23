@@ -1,10 +1,14 @@
 using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Settings.Configuration;
 using server.ServiceDefaults;
 using TvNoms.Core.Entities;
 using TvNoms.Core.Models;
@@ -20,6 +24,19 @@ using TvNoms.Server.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var assemblies = AssemblyHelper.GetAssemblies().ToArray();
+
+Log.Logger = new LoggerConfiguration()
+  .ReadFrom
+  .Configuration(
+    builder.Configuration,
+    new ConfigurationReaderOptions { SectionName = "SerilogOptions" })
+  .Enrich
+  .FromLogContext()
+  .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Host.UseSerilog(Log.Logger);
+
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
@@ -118,7 +135,23 @@ builder.Services.AddLocalFileStorage(options => {
   options.WebRootPath = "/uploads";
 });
 builder.Services.AddDocumentations();
-builder.Services.AddWebAppCors();
+builder.Services.AddWebAppCors(builder.Configuration);
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+  options.IdleTimeout = TimeSpan.FromSeconds(10);
+  options.Cookie.HttpOnly = true;
+  options.Cookie.IsEssential = true;
+});
+builder.Services.ConfigureHttpJsonOptions(options => {
+  options.SerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+  options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+  options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+  options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+
+  options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
+
 
 var app = builder.Build();
 

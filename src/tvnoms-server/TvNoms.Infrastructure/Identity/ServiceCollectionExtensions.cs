@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TvNoms.Core.Entities;
 using TvNoms.Core.Extensions.Identity;
@@ -9,14 +10,19 @@ using TvNoms.Server.Services;
 namespace TvNoms.Infrastructure.Identity;
 
 public static class ServiceCollectionExtensions {
-  public static IServiceCollection AddWebAppCors(this IServiceCollection services) {
+  public static IServiceCollection AddWebAppCors(this IServiceCollection services, IConfiguration config) {
     services.AddCors(options => {
-      options.AddPolicy("WebAppPolicy", builder => {
-        builder
+      options.AddPolicy("WebAppCors", policy => {
+        var allowedOrigins =
+          config.GetSection("AllowedOrigins")?.Get<string[]>() ?? Array.Empty<string>();
+
+        policy
+          .WithOrigins(allowedOrigins)
           .AllowAnyMethod()
           .AllowAnyHeader()
           .AllowCredentials()
-          .WithOrigins("https://tvnoms.dev.fergl.ie:3000/");
+          .WithExposedHeaders("Content-Disposition")
+          .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
       });
     });
     return services;
