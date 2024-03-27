@@ -31,6 +31,9 @@
     <Reference Include="Microsoft.Extensions.Options">
       <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\microsoft.extensions.options\8.0.2\lib\net8.0\Microsoft.Extensions.Options.dll</HintPath>
     </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\..\..\..\..\home\fergalm\.nuget\packages\quartz\3.8.1\lib\net6.0\Quartz.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

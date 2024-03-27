@@ -296,8 +296,11 @@ public class UserRepository : AppRepository<User>, IUserRepository {
   }
 
   public string? GetDeviceId(ClaimsPrincipal principal) {
-    if (principal == null) throw new ArgumentNullException(nameof(principal));
-    return principal.FindFirst(ClaimTypes.System) is Claim claim ? claim.Value : null;
+    ArgumentNullException.ThrowIfNull(principal);
+    return principal
+      .FindFirst(ClaimTypes.System) is { } claim
+      ? claim.Value
+      : null;
   }
 
   public string? GetSecurityStamp(ClaimsPrincipal principal) {

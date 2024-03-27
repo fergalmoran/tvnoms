@@ -34,21 +34,22 @@ public class ClientContext : IClientContext {
 
   public string? DeviceId {
     get {
-      if (ValidationHelper.TryParseUserAgent(UserAgent, out var userAgent)) {
-        var values = new object?[] {
-          userAgent.Device,
-          userAgent.UA,
-          userAgent.OS,
-          IpAddress
-        };
-
-        string deviceId;
-        deviceId = string.Join(",", values.Where((_) => !string.IsNullOrEmpty(_?.ToString()))).ToLower();
-        deviceId = TokenHelper.GenerateMD5Hash(deviceId);
-        return deviceId;
-      } else {
+      if (!ValidationHelper.TryParseUserAgent(UserAgent, out var userAgent)) {
         return null;
       }
+
+      var values = new object?[] {
+        userAgent.Device,
+        userAgent.UA,
+        userAgent.OS,
+        IpAddress
+      };
+
+      var deviceId = string
+        .Join(",", values
+          .Where((agent) => !string.IsNullOrEmpty(agent?.ToString()))).ToLower();
+      deviceId = TokenHelper.GenerateMD5Hash(deviceId);
+      return deviceId;
     }
   }
 

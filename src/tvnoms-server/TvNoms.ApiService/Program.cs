@@ -14,6 +14,8 @@ using TvNoms.Core.Entities;
 using TvNoms.Core.Models;
 using TvNoms.Core.Utilities;
 using TvNoms.Infrastructure.Identity;
+using TvNoms.Infrastructure.Jobs;
+using TvNoms.Infrastructure.MediaLookup;
 using TvNoms.Infrastructure.Messaging.Email;
 using TvNoms.Infrastructure.Messaging.SMS;
 using TvNoms.Infrastructure.Storage;
@@ -74,6 +76,8 @@ builder.Services.AddAutoMapper(assemblies);
 builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblies(assemblies); });
 builder.Services.AddRepositories(assemblies);
 builder.Services.AddValidators(assemblies);
+builder.Services.AddMediaLookupServices(builder.Configuration);
+builder.Services.AddScheduledJobs(builder.Configuration);
 
 builder.Services.AddIdentity<User, Role>(options => {
     // Password settings. (Will be using fluent validation)
@@ -119,7 +123,9 @@ builder.Services.AddAuthentication(options => {
     options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
   })
-  .AddBearer(options => { builder.Configuration.GetRequiredSection("BearerAuthOptions").Bind(options); })
+  .AddBearer(options => {
+    builder.Configuration.GetRequiredSection("BearerAuthOptions").Bind(options);
+  })
   .AddGoogle(GoogleDefaults.AuthenticationScheme, options => {
     options.SignInScheme = IdentityConstants.ExternalScheme;
     builder.Configuration.GetRequiredSection("GoogleAuthOptions").Bind(options);
@@ -160,6 +166,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 app.UseCors("WebAppPolicy");
+
+if (app.Environment.IsDevelopment()) {
+  app.UseSwagger();
+  app.UseSwaggerUI();
+}
+
 
 app.MapGet("/ping", () => "pong");
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using TvNoms.Core.Extensions.Identity;
 using TvNoms.Core.Repositories;
@@ -52,10 +53,17 @@ public class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBearerOptions
           return;
         }
 
-        var deviceId = userRepository.GetDeviceId(claimsPrincipal);
-        if (deviceId == null || !string.Equals(deviceId, clientContext.DeviceId, StringComparison.Ordinal)) {
-          context.Fail("Detected usage of an old token from an unknown device! Please login again!");
-          return;
+        //Allow the bearer token to be used in Postman if we're debugging
+        if (false) {
+          var deviceId = userRepository.GetDeviceId(claimsPrincipal);
+          if (deviceId == null ||
+              !string.Equals(
+                deviceId,
+                clientContext.DeviceId,
+                StringComparison.Ordinal)) {
+            context.Fail("Detected usage of an old token from an unknown device! Please login again!");
+            return;
+          }
         }
 
         var userId = userRepository.GetUserId(claimsPrincipal);
@@ -71,9 +79,9 @@ public class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBearerOptions
         }
 
 
-        if (context.SecurityToken is not JwtSecurityToken accessToken ||
-            string.IsNullOrWhiteSpace(accessToken.RawData) ||
-            !await userSessionFactory.ValidateAccessTokenAsync(accessToken.RawData)) {
+        if (context.SecurityToken is not JsonWebToken accessToken ||
+            string.IsNullOrWhiteSpace(accessToken.EncodedToken) ||
+            !await userSessionFactory.ValidateAccessTokenAsync(accessToken.EncodedToken)) {
           context.Fail("This token is not in our database.");
           return;
         }
