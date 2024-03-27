@@ -65,8 +65,10 @@ if (builder.Environment.IsDevelopment()) {
 
 builder.Services.AddDbContext<AppDbContext>(options => {
   var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-  options.UseNpgsql(connectionString,
-    sqlOptions => sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name));
+  options
+    .UseNpgsql(connectionString,
+      sqlOptions => sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.GetName().Name))
+    .UseSnakeCaseNamingConvention();
 });
 builder.Services.AddAutoMapper(assemblies);
 builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblies(assemblies); });

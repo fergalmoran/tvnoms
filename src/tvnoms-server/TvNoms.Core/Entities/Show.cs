@@ -1,5 +1,5 @@
 ﻿namespace TvNoms.Core.Entities;
 
-public class Show : BaseEntity {
+public class Show : BaseTrackedEntity {
   public string Title { get; set; }
 }
