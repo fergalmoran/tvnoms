@@ -14,6 +14,7 @@ public abstract class Endpoints {
       .MapGroup(prefix)
       //.WithGroupName(groupName)
       .WithTags(groupName)
+      .RequireCors()
       .WithOpenApi();
   }
 

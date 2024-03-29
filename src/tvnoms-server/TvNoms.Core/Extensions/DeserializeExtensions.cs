@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 namespace TvNoms.Core.Extensions;
 
 public static class DeserializeExtensions {
-  private static readonly JsonSerializerOptions _config = new JsonSerializerOptions {
-    NumberHandling = JsonNumberHandling.AllowReadingFromString |
-                     JsonNumberHandling.WriteAsString
+  private static readonly JsonSerializerOptions _config = new() {
+    NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString,
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
   };
 
   public static async Task<T?> DeserializeHttpContent<T>(this HttpContent content,

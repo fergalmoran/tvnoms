@@ -14,7 +14,6 @@ public class TheMovieDbService(IConfiguration config, IHttpClientFactory httpCli
     var results = await response
       .Content
       .DeserializeHttpContent<TheMovieDbResult<RemoteShowModel>>(token);
-
     return results;
   }
 }

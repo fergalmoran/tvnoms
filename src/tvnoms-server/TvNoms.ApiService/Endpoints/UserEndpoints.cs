@@ -14,7 +14,6 @@ using TvNoms.Server.Services;
 
 namespace TvNoms.Server.ApiService.Endpoints;
 
-[EnableCors("WebAppCors")]
 public class UserEndpoints : Shared.Endpoints {
   public UserEndpoints(IEndpointRouteBuilder endpointRouteBuilder)
     : base(endpointRouteBuilder) {
@@ -61,12 +60,10 @@ public class UserEndpoints : Shared.Endpoints {
     return Results.Ok();
   }
 
-  [EnableCors("WebAppCors")]
   public async Task<IResult> SignInAsync([FromServices] IUserService userService, [FromBody] SignInForm form) {
     return Results.Ok(await userService.SignInAsync(form));
   }
 
-  [EnableCors("WebAppCors")]
   public async Task<IResult> SignInWithAsync(
     [FromServices] IUserService userService,
     [FromServices] SignInManager<User> signInManager,
@@ -103,7 +100,6 @@ public class UserEndpoints : Shared.Endpoints {
     return Results.Ok(await userService.SignInWithAsync(form));
   }
 
-  [EnableCors("WebAppCors")]
   public IResult SignInWithRedirectAsync(
     [FromServices] SignInManager<User> signInManager,
     [FromServices] IConfiguration configuration,
@@ -170,7 +166,8 @@ public class UserEndpoints : Shared.Endpoints {
 
   public async Task<IResult> GetUsersAsync([FromServices] IUserService userService,
     [AsParameters] UserCriteria criteria, [FromQuery] long offset = 0, [FromQuery] int limit = 25) {
-    return Results.Ok(await userService.GetUsersAsync(criteria, offset, limit));
+    var user = await userService.GetUsersAsync(criteria, offset, limit);
+    return Results.Ok(user);
   }
 
   public async Task<IResult> GetCurrentUserAsync([FromServices] IUserService userService) {

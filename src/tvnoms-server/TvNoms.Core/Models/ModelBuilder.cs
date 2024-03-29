@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Humanizer;
+using TvNoms.Core.DTO;
 using TvNoms.Core.Entities;
 using TvNoms.Core.Extensions.Identity;
 using TvNoms.Core.FileStorage;
@@ -16,6 +17,9 @@ public interface IModelBuilder {
 
   Task<UserModel> BuildAsync(User user, CancellationToken cancellationToken = default);
   Task<UserPageModel> BuildAsync(IPageable<User> users, CancellationToken cancellationToken = default);
+
+
+  Task<ShowPageModel> BuildAsync(IPageable<ShowDto> shows, CancellationToken cancellationToken = default);
 }
 
 public class ModelBuilder : IModelBuilder {
@@ -82,6 +86,20 @@ public class ModelBuilder : IModelBuilder {
       Length = users.Length,
       Previous = users.Previous,
       Next = users.Next
+    };
+    return listModel;
+  }
+
+  public async Task<ShowPageModel> BuildAsync(IPageable<ShowDto> shows, CancellationToken cancellationToken = default) {
+    ArgumentNullException.ThrowIfNull(shows);
+
+    var listModel = new ShowPageModel() {
+      Items = shows.Items,
+      Offset = shows.Offset,
+      Limit = shows.Limit,
+      Length = shows.Length,
+      Previous = shows.Previous,
+      Next = shows.Next
     };
     return listModel;
   }

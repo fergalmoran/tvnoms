@@ -6,4 +6,5 @@ public interface IPageable<T> : IEnumerable<T> {
   long Length { get; }
   long? Previous { get; }
   long? Next { get; }
+  IList<T>? Items { get; }
 }

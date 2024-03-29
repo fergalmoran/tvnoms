@@ -1,12 +1,13 @@
 using System.Text.Json.Serialization;
+using AbstractProfile = AutoMapper.Profile;
 
 namespace TvNoms.Core.MediaLookup;
 
-public class TheMovieDbResult<T> {
+public class TheMovieDbResult<T> : AbstractProfile {
   [JsonPropertyName("page")] public int Page { get; set; }
   [JsonPropertyName("total_pages")] public int TotalPages { get; set; }
   [JsonPropertyName("total_results")] public int TotalResults { get; set; }
-  [JsonPropertyName("results")] public List<T> Results { get; set; }
+  [JsonPropertyName("results")] public List<T> Items { get; set; }
 }
 
 public class RemoteShowModel {

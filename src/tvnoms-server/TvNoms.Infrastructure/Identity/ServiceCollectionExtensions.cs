@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions {
   public static IServiceCollection AddWebAppCors(this IServiceCollection services, IConfiguration config) {
     services.AddCors(options => {
       options.AddPolicy("WebAppCors", policy => {
+        // options.AddDefaultPolicy(policy => {
         var allowedOrigins =
           config.GetSection("AllowedOrigins")?.Get<string[]>() ?? Array.Empty<string>();
 
@@ -21,8 +22,9 @@ public static class ServiceCollectionExtensions {
           .AllowAnyMethod()
           .AllowAnyHeader()
           .AllowCredentials()
-          .WithExposedHeaders("Content-Disposition")
-          .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
+          // .WithExposedHeaders("Content-Disposition")
+          // .SetPreflightMaxAge(TimeSpan.FromMinutes(10))
+          ;
       });
     });
     return services;

@@ -118,6 +118,7 @@ builder.Services.AddIdentity<User, Role>(options => {
 builder.Services.AddClientContext();
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddWebAppCors(builder.Configuration);
 builder.Services.AddAuthentication(options => {
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -130,8 +131,9 @@ builder.Services.AddAuthentication(options => {
     options.SignInScheme = IdentityConstants.ExternalScheme;
     builder.Configuration.GetRequiredSection("GoogleAuthOptions").Bind(options);
   });
-builder.Services.AddModelBuilder();
 builder.Services.AddAuthorization();
+
+builder.Services.AddModelBuilder();
 builder.Services.AddMailgunEmailSender(options => {
   builder.Configuration.GetRequiredSection("MailgunEmailOptions").Bind(options);
 });
@@ -143,7 +145,6 @@ builder.Services.AddLocalFileStorage(options => {
   options.WebRootPath = "/uploads";
 });
 builder.Services.AddDocumentations();
-builder.Services.AddWebAppCors(builder.Configuration);
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
   options.IdleTimeout = TimeSpan.FromSeconds(10);
@@ -165,7 +166,10 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
-app.UseCors("WebAppPolicy");
+app.UseCors("WebAppCors");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment()) {
   app.UseSwagger();
