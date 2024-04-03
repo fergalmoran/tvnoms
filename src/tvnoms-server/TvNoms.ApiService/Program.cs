@@ -46,24 +46,24 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
-if (builder.Environment.IsDevelopment()) {
-  builder.WebHost.ConfigureKestrel(serverOptions => {
-    var pemFile = builder.Configuration["Startup:PemFile"];
-    var keyFile = builder.Configuration["Startup:KeyFile"];
-    var port = int.Parse(builder.Configuration["Startup:Port"] ?? "5001");
-    if (string.IsNullOrEmpty(pemFile) || string.IsNullOrEmpty(keyFile)) {
-      throw new InvalidOperationException("Unable to find SSL certificate files.");
-    }
-
-    serverOptions.Listen(IPAddress.Any, port, listenOptions => {
-      var certPem = File.ReadAllText(pemFile);
-      var keyPem = File.ReadAllText(keyFile);
-      var x509 = X509Certificate2.CreateFromPem(certPem, keyPem);
-
-      listenOptions.UseHttps(x509);
-    });
-  });
-}
+// if (builder.Environment.IsDevelopment()) {
+//   builder.WebHost.ConfigureKestrel(serverOptions => {
+//     var pemFile = builder.Configuration["Startup:PemFile"];
+//     var keyFile = builder.Configuration["Startup:KeyFile"];
+//     var port = int.Parse(builder.Configuration["Startup:Port"] ?? "5001");
+//     if (string.IsNullOrEmpty(pemFile) || string.IsNullOrEmpty(keyFile)) {
+//       throw new InvalidOperationException("Unable to find SSL certificate files.");
+//     }
+//
+//     serverOptions.Listen(IPAddress.Any, port, listenOptions => {
+//       var certPem = File.ReadAllText(pemFile);
+//       var keyPem = File.ReadAllText(keyFile);
+//       var x509 = X509Certificate2.CreateFromPem(certPem, keyPem);
+//
+//       listenOptions.UseHttps(x509);
+//     });
+//   });
+// }
 
 builder.Services.AddDbContext<AppDbContext>(options => {
   var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions {
       options.SwaggerDoc("v1", new OpenApiInfo {
         Version = "v1",
         Title = assembly.GetName().Name,
-        Description = "An ASP.NET Core Web API for managing ToDo items",
+        Description = "TV Noms dotcom API",
         TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact {
           Name = "Example Contact",
