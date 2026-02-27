@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "unicorn"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "warn"
+  },
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "settings": {
+    "react": {
+      "version": "19"
+    }
+  },
+  "rules": {
+    // -- General --
+    "no-console": "warn",
+    "no-var": "error",
+    "prefer-const": "error",
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
+    "no-restricted-globals": "off",
+    "max-lines-per-function": "off",
+
+    // -- TypeScript --
+    "typescript/no-explicit-any": "warn",
+    "typescript/consistent-type-imports": ["warn", { "prefer": "type-imports", "fixStyle": "inline-type-imports" }],
+    "typescript/no-non-null-assertion": "warn",
+    "typescript/no-unused-vars": "off", // Handled by tsc noUnusedLocals
+
+    // -- React --
+    "react/react-in-jsx-scope": "off", // Not needed with React 17+ new JSX transform
+    "react/exhaustive-deps": "warn",
+    "react/jsx-no-target-blank": "error",
+    "react/no-danger": "warn",
+    "react/no-array-index-key": "warn",
+    "react/self-closing-comp": "warn",
+    "react/jsx-boolean-value": ["warn", "never"],
+
+    // -- Unicorn (selective) --
+    "unicorn/no-array-for-each": "warn",
+    "unicorn/no-for-loop": "warn",
+    "unicorn/no-array-sort": "warn",
+    "unicorn/prefer-includes": "warn",
+    "unicorn/prefer-string-slice": "warn",
+    "unicorn/prefer-number-properties": "warn",
+    "unicorn/throw-new-error": "error",
+    "unicorn/no-useless-undefined": "warn",
+    "unicorn/prefer-ternary": "warn",
+    "unicorn/no-negated-condition": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-explicit-any": "off",
+        "typescript/no-non-null-assertion": "off"
+      }
+    }
+  ]
+}
