@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TvNoms.Core.MediaLookup;
@@ -10,6 +11,8 @@ public static class ServiceCollectionExtensions {
     services.AddTransient<IShowLookupService, TheMovieDbService>();
     services.AddHttpClient("themoviedb", c => {
       c.BaseAddress = new Uri("https://api.themoviedb.org/3/");
+      c.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", config.GetSection("ApiKeys:TheMovieDb:Key").Value);
     });
     return services;
   }

@@ -22,8 +22,6 @@ public static class Extensions {
       // Turn on resilience by default
       http.AddStandardResilienceHandler();
 
-      // Turn on service discovery by default
-      http.UseServiceDiscovery();
     });
 
     return builder;
@@ -35,23 +33,23 @@ public static class Extensions {
       logging.IncludeScopes = true;
     });
 
-    builder.Services.AddOpenTelemetry()
-      .WithMetrics(metrics => {
-        metrics.AddAspNetCoreInstrumentation()
-          .AddHttpClientInstrumentation()
-          .AddProcessInstrumentation()
-          .AddRuntimeInstrumentation();
-      })
-      .WithTracing(tracing => {
-        if (builder.Environment.IsDevelopment()) {
-          // We want to view all traces in development
-          tracing.SetSampler(new AlwaysOnSampler());
-        }
-
-        tracing.AddAspNetCoreInstrumentation()
-          .AddGrpcClientInstrumentation()
-          .AddHttpClientInstrumentation();
-      });
+    // builder.Services.AddOpenTelemetry()
+    //   .WithMetrics(metrics => {
+    //     metrics.AddAspNetCoreInstrumentation()
+    //       .AddHttpClientInstrumentation()
+    //       .AddProcessInstrumentation()
+    //       .AddRuntimeInstrumentation();
+    //   })
+    //   .WithTracing(tracing => {
+    //     if (builder.Environment.IsDevelopment()) {
+    //       // We want to view all traces in development
+    //       tracing.SetSampler(new AlwaysOnSampler());
+    //     }
+    //
+    //     tracing.AddAspNetCoreInstrumentation()
+    //       .AddGrpcClientInstrumentation()
+    //       .AddHttpClientInstrumentation();
+    //   });
 
     builder.AddOpenTelemetryExporters();
 
