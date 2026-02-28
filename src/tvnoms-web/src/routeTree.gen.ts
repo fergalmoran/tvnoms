@@ -9,12 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
+import { Route as SignUpRouteImport } from './routes/sign-up'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as AuthedRouteImport } from './routes/_authed'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthedWatchlistRouteImport } from './routes/_authed.watchlist'
+import { Route as MediaTypeIdRouteImport } from './routes/media.$type.$id'
+import { Route as ApiTrendingRefreshRouteImport } from './routes/api/trending/refresh'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const RssDotxmlRoute = RssDotxmlRouteImport.update({
-  id: '/rss.xml',
-  path: '/rss.xml',
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthedRoute = AuthedRouteImport.update({
+  id: '/_authed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -22,40 +43,132 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthedWatchlistRoute = AuthedWatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => AuthedRoute,
+} as any)
+const MediaTypeIdRoute = MediaTypeIdRouteImport.update({
+  id: '/media/$type/$id',
+  path: '/media/$type/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTrendingRefreshRoute = ApiTrendingRefreshRouteImport.update({
+  id: '/api/trending/refresh',
+  path: '/api/trending/refresh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/rss.xml': typeof RssDotxmlRoute
+  '/search': typeof SearchRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/watchlist': typeof AuthedWatchlistRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/trending/refresh': typeof ApiTrendingRefreshRoute
+  '/media/$type/$id': typeof MediaTypeIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/rss.xml': typeof RssDotxmlRoute
+  '/search': typeof SearchRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/watchlist': typeof AuthedWatchlistRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/trending/refresh': typeof ApiTrendingRefreshRoute
+  '/media/$type/$id': typeof MediaTypeIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/rss.xml': typeof RssDotxmlRoute
+  '/_authed': typeof AuthedRouteWithChildren
+  '/search': typeof SearchRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/_authed/watchlist': typeof AuthedWatchlistRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/trending/refresh': typeof ApiTrendingRefreshRoute
+  '/media/$type/$id': typeof MediaTypeIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/rss.xml'
+  fullPaths:
+    | '/'
+    | '/search'
+    | '/sign-in'
+    | '/sign-up'
+    | '/watchlist'
+    | '/api/auth/$'
+    | '/api/trending/refresh'
+    | '/media/$type/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/rss.xml'
-  id: '__root__' | '/' | '/rss.xml'
+  to:
+    | '/'
+    | '/search'
+    | '/sign-in'
+    | '/sign-up'
+    | '/watchlist'
+    | '/api/auth/$'
+    | '/api/trending/refresh'
+    | '/media/$type/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authed'
+    | '/search'
+    | '/sign-in'
+    | '/sign-up'
+    | '/_authed/watchlist'
+    | '/api/auth/$'
+    | '/api/trending/refresh'
+    | '/media/$type/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RssDotxmlRoute: typeof RssDotxmlRoute
+  AuthedRoute: typeof AuthedRouteWithChildren
+  SearchRoute: typeof SearchRoute
+  SignInRoute: typeof SignInRoute
+  SignUpRoute: typeof SignUpRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiTrendingRefreshRoute: typeof ApiTrendingRefreshRoute
+  MediaTypeIdRoute: typeof MediaTypeIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/rss.xml': {
-      id: '/rss.xml'
-      path: '/rss.xml'
-      fullPath: '/rss.xml'
-      preLoaderRoute: typeof RssDotxmlRouteImport
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authed': {
+      id: '/_authed'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -65,12 +178,57 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authed/watchlist': {
+      id: '/_authed/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof AuthedWatchlistRouteImport
+      parentRoute: typeof AuthedRoute
+    }
+    '/media/$type/$id': {
+      id: '/media/$type/$id'
+      path: '/media/$type/$id'
+      fullPath: '/media/$type/$id'
+      preLoaderRoute: typeof MediaTypeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/trending/refresh': {
+      id: '/api/trending/refresh'
+      path: '/api/trending/refresh'
+      fullPath: '/api/trending/refresh'
+      preLoaderRoute: typeof ApiTrendingRefreshRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthedRouteChildren {
+  AuthedWatchlistRoute: typeof AuthedWatchlistRoute
+}
+
+const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedWatchlistRoute: AuthedWatchlistRoute,
+}
+
+const AuthedRouteWithChildren =
+  AuthedRoute._addFileChildren(AuthedRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RssDotxmlRoute: RssDotxmlRoute,
+  AuthedRoute: AuthedRouteWithChildren,
+  SearchRoute: SearchRoute,
+  SignInRoute: SignInRoute,
+  SignUpRoute: SignUpRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiTrendingRefreshRoute: ApiTrendingRefreshRoute,
+  MediaTypeIdRoute: MediaTypeIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

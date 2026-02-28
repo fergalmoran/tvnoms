@@ -1,4 +1,5 @@
 {
+  "workbench.colorTheme": "Cyberpunk 2077 rebuild",
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
   },
@@ -7,5 +8,19 @@
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
+  },
+  "files.exclude": {
+    "**/.vscode": true,
+    "**/.content-collections": true,
+    "**/.tanstack": true,
+    "**/dist": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/flutter/ephemeral": true,
+    "**/Flutter/ephemeral": true,
+    "**/.symlinks": true,
+    "**/.plugin_symlinks": true
   }
 }

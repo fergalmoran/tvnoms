@@ -1,25 +1,25 @@
-import { defineConfig } from "vite";
-import { devtools } from "@tanstack/devtools-vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from 'vite'
+import { devtools } from '@tanstack/devtools-vite'
+import contentCollections from '@content-collections/vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 
-import viteReact from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import { nitro } from "nitro/vite";
+import viteReact from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 const config = defineConfig({
   server: {
-    allowedHosts: ["localhost", "tvnoms.com", "tvnoms.dev.fergl.ie"],
+    allowedHosts: ['localhost', 'tvnoms.dev.fergl.ie', 'tvnoms.com'],
   },
   plugins: [
     devtools(),
-    nitro({ rollupConfig: { external: [/^@sentry\//] } }),
-    tsconfigPaths({ projects: ["./tsconfig.json"] }),
+    contentCollections(),
+    tsconfigPaths({ projects: ['./tsconfig.json'] }),
     tailwindcss(),
     tanstackStart(),
     viteReact(),
   ],
-});
+})
 
-export default config;
+export default config
